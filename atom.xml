@@ -2,18 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Everything about Iris</title>
-    <updated>2021-12-12T06:39:39.049Z</updated>
+    <updated>2021-12-12T06:46:13.920Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
     <logo>https://irisdin.github.io/images/avatar.png</logo>
     <icon>https://irisdin.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Everything about Iris</rights>
-    <entry>
-        <title type="html"><![CDATA[This is a test]]></title>
-        <id>https://irisdin.github.io/post/this-is-a-test/</id>
-        <link href="https://irisdin.github.io/post/this-is-a-test/">
-        </link>
-        <updated>2021-12-10T06:35:17.000Z</updated>
-    </entry>
 </feed>
