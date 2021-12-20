@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Everything about Iris</title>
-    <updated>2021-12-20T20:18:33.350Z</updated>
+    <updated>2021-12-20T20:25:48.615Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
@@ -32,18 +32,18 @@
         <updated>2021-12-18T03:40:09.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Analyzing the problems and design of Airbnb interfaces]]></title>
-        <id>https://irisdin.github.io/post/59JrCTeTC/</id>
-        <link href="https://irisdin.github.io/post/59JrCTeTC/">
-        </link>
-        <updated>2021-12-09T12:32:02.000Z</updated>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[Should employers be allowed to surveil their employees' or potential employee’s digital actions and made decisions?]]></title>
         <id>https://irisdin.github.io/post/da1sPo1x1/</id>
         <link href="https://irisdin.github.io/post/da1sPo1x1/">
         </link>
         <updated>2021-12-08T21:03:13.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Analyzing the problems and design of Airbnb interfaces]]></title>
+        <id>https://irisdin.github.io/post/59JrCTeTC78/</id>
+        <link href="https://irisdin.github.io/post/59JrCTeTC78/">
+        </link>
+        <updated>2021-12-08T04:32:02.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Ways of getting into informatics :)]]></title>
