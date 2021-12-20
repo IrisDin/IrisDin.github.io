@@ -1,0 +1,566 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fraud detection pratice | Everything about Iris</title>
+<link rel="shortcut icon" href="https://irisdin.github.io//favicon.ico?v=1640034828439">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://irisdin.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Fraud detection pratice | Everything about Iris - Atom Feed" href="https://irisdin.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="readme link🔻
+uw cse
+only for practice purpose/plagiarism is not allowed🔻
+cse misconduct guideline
+
+progamming language..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://irisdin.github.io/">
+  <img class="avatar" src="https://irisdin.github.io//images/avatar.png?v=1640034828439" alt="">
+  </a>
+  <h1 class="site-title">
+    Everything about Iris
+  </h1>
+  <p class="site-description">
+    It’s hard to stay mad when there’s so much beauty in the world.
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/archives" class="menu">
+          Work
+        </a>
+      
+    
+      
+        <a href="https://irisdin.github.io/" class="menu">
+          Main
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tag
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/IrisDin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.instagram.com/iris_oovo/" target="_blank">
+          <i class="ri-facebook-line"></i>
+        </a>
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Fraud detection pratice
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-12-18
+              </span>
+              <span>
+                13 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="readme-link">readme link🔻</h1>
+<p><a href="https://courses.cs.washington.edu/courses/cse160/21au/homework/hw6/homework6.html">uw cse</a><br>
+<font color=red>only for practice purpose/plagiarism is not allowed</font>🔻<br>
+<a href="https://www.cs.washington.edu/academics/misconduct">cse misconduct guideline</a></p>
+<ul>
+<li>progamming language : python</li>
+</ul>
+<pre><code class="language-python"># importing the packages we used for this assignment
+import utils  # noqa: F401, do not remove if using a Mac
+import matplotlib.pyplot as plt
+import random
+import csv
+
+
+def extract_election_vote_counts(filename, column_names):
+   &quot;&quot;&quot;
+   Returns a list of integers that contains the values in those
+   columns from every row (the order of the integers does not matter).
+
+   examples:
+   extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+    [&quot;Ahmadinejad&quot;, &quot;Rezai&quot;, &quot;Karrubi&quot;, &quot;Mousavi&quot;])
+   Should return:
+   [1131111, 16920, 7246, 837858, 623946, 12199, 21609, 656508, ...
+   Arguments:
+       file_name: the election csv file
+       column_name: list of column names for each province
+
+   Returns:  a list of integers that contains the values in those columns
+   *update for problem 8: When data is missing,
+    our calculation should ignore that data.
+    Do not transform it into a zero.
+   &quot;&quot;&quot;
+   # creating an new empty list
+   cleaned_data = []
+   # open the file
+   election_file = open(filename)
+   # reading lines from a csv file
+   for line in csv.DictReader(election_file):
+       for characters in column_names:
+           # ignore the empty space in the csv file
+           if len(line[characters]) &gt; 0:
+               # replace unwanted characters with the empty string
+               number = int(line[characters].replace(&quot;,&quot;, &quot;&quot;))
+               cleaned_data.append(int(number))
+   election_file.close()
+   # Returns a list of integers that contains the values we want
+   return cleaned_data
+
+
+def ones_and_tens_digit_histogram(numbers):
+   &quot;&quot;&quot;
+   taking as inputs a list of numbers and
+   produce as ouput a list of 10 numbers.
+   examples: the call ones_and_tens_digit_histogram([127, 426, 28, 9, 90])
+   should return [0.2, 0.0, 0.3, 0.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0.2]
+
+   Arguments:
+       numbers: a list of numbers
+
+   Returns: In the returned list, the value at index i is the frequency
+   with which digit i appeared in the ones place
+   OR the tens place in the input list.
+   In the input, in a number that is less than 10, such as 3,
+   the tens place is implicitly zero. That is, 3 must be treated as 03.
+   &quot;&quot;&quot;
+   # creating new empty list
+   ten_list = []
+   convert_num_list = []
+   # converting the number into two digits
+   for n in numbers:
+       n = n % 100
+       convert_num_list.append(n)
+   for i in range(0, 10):
+       frequency = 0
+       # finding the tens place and ones place
+       for num in convert_num_list:
+           if int(num // 10) == i:
+               frequency += 1
+           if int(num % 10) == i:
+               frequency += 1
+       # finding the total length of digit for calculation
+       digits_length = len(numbers) * 2
+       # returning the list based by the calculation
+       ten_list.append(frequency/(digits_length))
+   return ten_list
+
+
+def plot_iran_least_digits_histogram(histogram):
+   &quot;&quot;&quot;&quot;&quot;
+   Takes a histogram (as created by ones_and_tens_digit_histogram)
+       Graphs the frequencies of the ones and tens digits
+       for the Iranian election data.
+       Save your plot to a file named iran-digits.png using plt.savefig.
+   Arguments:
+       histogram: the list of numbers with the frequencies of
+                  the ones and tens digits
+   Return: The function should not return anything
+           but we need to show and save the plot
+   &quot;&quot;&quot;
+   # creating the plot based on the example
+   x_axis = list(range(0, 10))
+   plt.title('Distribution of last two digits in Iranian dataset')
+   plt.xlabel(&quot;Digit&quot;)
+   plt.ylabel(&quot;Frequency&quot;)
+   # The ideal line represents the uniform distribution
+   ideal_line = [0.1] * 10
+   # creating the graph with the detail that given
+   plt.plot(x_axis, ideal_line, color='blue', label='ideal')
+   plt.plot(x_axis, histogram, color='orange', label='iran')
+   plt.legend(loc='upper left')
+   plt.savefig(&quot;iran-digits.png&quot;)
+   plt.show()
+   plt.clf()
+   return None
+
+
+def plot_distribution_by_sample_size():
+   &quot;&quot;&quot;
+   Creates five different collections (one of size 10, another of size 50,
+   then 100, 1000, and 10,000) of random numbers where every element in the
+   collection is a different random number x such that 0 &lt;= x &lt; 100.
+   Argument: /
+   Return:
+       The function should not return anything but we need to show and
+       save the graph.
+   &quot;&quot;&quot;
+   # graph the ideal line(* based on the format given)
+   ideal_line = [0.1] * 10
+   # creating differnt collections of random numbers
+   plt.plot(ideal_line, color='blue', label='ideal')
+   for i in [10, 50, 100, 1000, 10000]:
+       # the random_list function is a helper function that generate
+       # random data
+       graph = ones_and_tens_digit_histogram(random_list(i))
+       plt.plot(graph, label=str(i) + 'random numbers')
+   # creating other details based on the example given
+   plt.title('Distribution of last two digits in randomly generated samples')
+   plt.xlabel(&quot;Digit&quot;)
+   plt.ylabel(&quot;Frequency&quot;)
+   plt.legend(loc='upper left')
+   plt.savefig(&quot;random-digits.png&quot;)
+   plt.show()
+   plt.clf()
+
+
+def mean_squared_error(numbers1, numbers2):
+   &quot;&quot;&quot;
+   finding way to computationally determine how similar two lines are.
+   determine whether the difference between lines A and B is larger or smaller
+   than the difference between lines C and D.
+   Argument: two lists of numbers
+   Return: the mean squared error between the lists.
+   &quot;&quot;&quot;
+   mean_squared_error = 0.0
+   # finding the mse based on the definition
+   for i in range(len(numbers1)):
+       mean_squared_error += (numbers1[i] - numbers2[i])**2
+   mean_squared_error = mean_squared_error / (float)(len(numbers1))
+   return mean_squared_error
+
+
+def calculate_mse_with_uniform(histogram):
+   &quot;&quot;&quot;
+   Argument: histogram(as created by ones_and_tens_digit_histogram)
+   Return: Returns the mean squared error of the
+   given histogram with the uniform distribution.
+   E.G.: call: calculate_mse_with_uniform(histogram)
+   Should return:
+   0.000739583333333
+   &quot;&quot;&quot;
+   # calling the mean square error function to return the
+   # number we want
+   uniform__his_mse = mean_squared_error(histogram, [0.1] * 10)
+   return uniform__his_mse
+
+
+def random_list(number):
+   &quot;&quot;&quot;&quot;
+   This is a helper function to avoid duplicate code.
+   The function randomly generated number that 0 &lt;= number &lt; 100
+    * this helper function can be used in the function
+      plot_distribution_by_sample_size and using to compraing the election
+      MSE with the sample
+   Return: a list of random numbers that 0&lt;= number &lt; 100
+   &quot;&quot;&quot;
+   # creating a new empty list
+   random_lst = []
+   # generate random number x with the given range
+   for x in range(number):
+       random_lst.append(random.randint(0, 99))
+   return random_lst
+
+
+def Mse_election_to_samples(mse_election, election_datapoints,
+                           specific_election):
+   &quot;&quot;&quot;
+   this is a helper function to avoid dupicate codes when we try to
+      implement different dataset(E.G: different countries election dataset)
+   Determine how many of the 10,000 random MSEs are larger than or equal to
+   MSE for election
+   Determine how many of the 10,000 random MSEs are
+   smaller than the MSE for election
+   Determine the election null hypothesis rejection level
+   Print all of these values
+
+   Arguments:mse_election : the mean sqaured error of each specific eletion
+   election_datapoints: number of datapoints(*we can not haedcode for that)
+   specific_election: the title of file we used for the print statement
+
+   return: this function should not return anything
+   &quot;&quot;&quot;
+   small_quan = 0
+   large_quan = 0
+   # we need to generate 10000 random MSEs
+   for i in range(0, 10000):
+       # calling the helper function to create random list
+       random = random_list(election_datapoints)
+       # finding the frequency
+       his = ones_and_tens_digit_histogram(random)
+       # finding the mean squared error
+       mse = calculate_mse_with_uniform(his)
+       # comparing of the sample mse with the real election mse
+       if (mse &gt;= mse_election):
+           large_quan += 1
+       else:
+           small_quan += 1
+   # calculating the p value based on the definition
+   # using the p value to compare
+   p_value = large_quan / 10000
+   # the print statment we used for differnt elections
+   # writing based on the format that given
+   print(specific_election, &quot;election MSE:&quot;, mse_election)
+   print(&quot;Quantity of MSEs larger than or equal to the&quot;,
+         specific_election, &quot;election MSE:&quot;, large_quan)
+   print(&quot;Quantity of MSEs smaller than the&quot;, specific_election,
+         &quot;election MSE:&quot;, small_quan)
+   print(specific_election, &quot;election null hypothesis rejection level p:&quot;,
+         p_value)
+   return None
+
+
+def compare_iran_mse_to_samples(iran_mse, number_of_iran_datapoints):
+   &quot;&quot;&quot;
+   Determine how many of the 10,000 random MSEs are larger
+      than or equal to the Iran MSE
+      Determine how many of the 10,000 random MSEs are smaller
+      than the Iran MSE
+      Determine the Iranian election null hypothesis rejection level
+      Print all of these values after the Iranian MSE.
+   Arguments:  the Iranian MSE (as computed by calculate_mse_with_uniform)
+   the number of data points in the Iranian dataset
+   Return: This function should not return anything.
+   &quot;&quot;&quot;
+   # calling the helper function above to generate iran result
+   MSE_election_to_samples(iran_mse, number_of_iran_datapoints,
+                           &quot;2009 Iranian&quot;)
+   return None
+
+
+def compare_us_mse_to_samples(us_mse, number_of_us_datapoints):
+   &quot;&quot;&quot; works the same as the compare_iran_mse_to_samples function
+       * just replacing the dataset to real us election
+   &quot;&quot;&quot;
+   # calling the helper function above to generate iran result
+   MSE_election_to_samples(us_mse, number_of_us_datapoints,
+                           &quot;2008 United States&quot;)
+   return None
+
+
+# The code in this function is executed when this
+# file is run as a Python program
+# calling the function that written above
+def main():
+   iran_election = ['Ahmadinejad', 'Rezai', 'Karrubi', 'Mousavi']
+   vote_count_iran = extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+                                                  iran_election)
+   iran_his = ones_and_tens_digit_histogram(vote_count_iran)
+   iran_error = calculate_mse_with_uniform(iran_his)
+   plot_iran_least_digits_histogram(iran_his)
+   plot_distribution_by_sample_size()
+   # we do not need to hard code the number of datapoints
+   compare_iran_mse_to_samples(iran_error, len(vote_count_iran))
+   # formating requirement
+   print()
+   # * using other dataset(the code works the same way as above)
+   us_election = [&quot;Obama&quot;, &quot;McCain&quot;, &quot;Nader&quot;, &quot;Barr&quot;,
+                  &quot;Baldwin&quot;, &quot;McKinney&quot;]
+   vote_count_us = extract_election_vote_counts(&quot;election-us-2008.csv&quot;,
+                                                us_election)
+   us_his = ones_and_tens_digit_histogram(vote_count_us)
+   us_error = calculate_mse_with_uniform(us_his)
+   compare_us_mse_to_samples(us_error, len(vote_count_us))
+
+
+if __name__ == &quot;__main__&quot;:
+   main()
+</code></pre>
+<h2 id="testing">testing</h2>
+<pre><code class="language-python">import fraud_detection as fd
+import math
+
+def test_extract_election_vote_counts():
+   actual = fd.extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+                                            [&quot;Ahmadinejad&quot;, &quot;Rezai&quot;,
+                                             &quot;Karrubi&quot;, &quot;Mousavi&quot;])[:8]
+   expected = [1131111, 16920, 7246, 837858, 623946, 12199, 21609, 656508]
+   assert actual == expected
+
+   actual = fd.extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+                                            [&quot;Ahmadinejad&quot;])[:10]
+   expected = [1131111, 623946, 325911, 1799255, 199654, 299357,
+               3819495, 359578, 285984, 2214801]
+   assert actual == expected
+
+   actual = fd.extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+                                            [&quot;Karrubi&quot;])[:10]
+   expected = [7246, 21609, 2319, 14579, 7471, 3563, 67334, 4127,
+               928, 13561]
+   assert actual == expected
+
+   actual = actual = fd.extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+                                                     [&quot;Mousavi&quot;])[:10]
+   expected = [837858, 656508, 302825, 746697, 96826, 177268, 3371523, 106099,
+               90363, 884570]
+   assert actual == expected
+   
+   print(&quot;test_extract_election_vote_counts passed.&quot;)
+
+
+def test_ones_and_tens_digit_histogram():
+   actual = fd.ones_and_tens_digit_histogram([127, 426, 28, 9, 90])
+   expected = [0.2, 0.0, 0.3, 0.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0.2]
+
+   actual = fd.ones_and_tens_digit_histogram([0, 1, 1, 2, 3, 5, 8, 13, 21,
+                                             34, 55, 89, 144, 233, 377, 610,
+                                             987, 1597, 2584, 4181, 6765])
+   expected = [0.21428571428571427, 0.14285714285714285, 0.047619047619047616,
+               0.11904761904761904, 0.09523809523809523, 0.09523809523809523,
+               0.023809523809523808, 0.09523809523809523, 0.11904761904761904,
+               0.047619047619047616]
+
+   actual = fd.ones_and_tens_digit_histogram([3, 5, 15, 16, 18])
+   expected = [0.2, 0.3, 0.0, 0.2, 0.0, 0.1, 0.1, 0.0, 0.1, 0.0]
+
+   actual = fd.ones_and_tens_digit_histogram([123, 88, 1314, 279, 236556])
+   expected = [0.0, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.1]
+
+   actual = fd.ones_and_tens_digit_histogram([10, 10])
+   expected = [0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+   for i in range(len(actual)):
+       assert math.isclose(actual[i], expected[i])
+
+   print(&quot;test_ones_and_tens_digit_histogram passed.&quot;)
+
+
+def test_mean_squared_error():
+   assert fd.mean_squared_error([1, 4, 9], [6, 5, 4]) == 17.0
+   assert fd.mean_squared_error([23, 37], [33, 49]) == 122.0
+   assert fd.mean_squared_error([123, 456, 789], [133, 466, 799]) == 100.0
+   print(&quot;test_mean_squared_error passed.&quot;)
+
+
+def test_calculate_mse_with_uniform():
+   dataset = fd.extract_election_vote_counts(&quot;election-iran-2009.csv&quot;,
+                                             [&quot;Ahmadinejad&quot;, &quot;Rezai&quot;,
+                                              &quot;Karrubi&quot;, &quot;Mousavi&quot;])
+   frequency = fd.ones_and_tens_digit_histogram(dataset)
+   actual = fd.calculate_mse_with_uniform(frequency)
+   expected = 0.000739583333333
+
+   assert math.isclose(actual, expected)
+
+   print(&quot;test_calculate_mse_with_uniform passed.&quot;)
+
+
+def main():
+   test_extract_election_vote_counts()
+   test_ones_and_tens_digit_histogram()
+   test_mean_squared_error()
+   test_calculate_mse_with_uniform()
+   print(&quot;All test passed.&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+   main()
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#readme-link">readme link🔻</a>
+<ul>
+<li><a href="#testing">testing</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://irisdin.github.io/post/ZT9SQzev5/">
+              <h3 class="post-title">
+                Social networking and recommendation sysytems practice
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Iris
+  <a class="rss" href="https://irisdin.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
