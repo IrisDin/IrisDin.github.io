@@ -1,0 +1,927 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>K-Means algorithms practice | Everything about Iris</title>
+<link rel="shortcut icon" href="https://irisdin.github.io//favicon.ico?v=1640029927486">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://irisdin.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="K-Means algorithms practice | Everything about Iris - Atom Feed" href="https://irisdin.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="readme link🔻
+uw cse
+only for practice purpose/plagiarism is not allowed🔻
+cse misconduct guideline
+import matplotlib.py..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://irisdin.github.io/">
+  <img class="avatar" src="https://irisdin.github.io//images/avatar.png?v=1640029927486" alt="">
+  </a>
+  <h1 class="site-title">
+    Everything about Iris
+  </h1>
+  <p class="site-description">
+    It’s hard to stay mad when there’s so much beauty in the world.
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/archives" class="menu">
+          Work
+        </a>
+      
+    
+      
+        <a href="https://irisdin.github.io/" class="menu">
+          Main
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tag
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/IrisDin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.instagram.com/iris_oovo/" target="_blank">
+          <i class="ri-facebook-line"></i>
+        </a>
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              K-Means algorithms practice
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-12-18
+              </span>
+              <span>
+                21 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="readme-link">readme link🔻</h1>
+<p><a href="https://courses.cs.washington.edu/courses/cse160/21au/homework/hw4/homework4.html">uw cse</a><br>
+<font color=red>only for practice purpose/plagiarism is not allowed</font>🔻<br>
+<a href="https://www.cs.washington.edu/academics/misconduct">cse misconduct guideline</a></p>
+<pre><code class="language-python">import matplotlib.pyplot as plt  # noqa: E402
+import os  # noqa: E402
+import math  # noqa: E402
+from utils import converged, plot_2d, plot_centroids, assert_equals, \
+   read_data, load_centroids, write_centroids_tofile  # noqa: E402
+# problem for students
+def euclidean_distance(point1, point2):
+   &quot;&quot;&quot;Calculate the Euclidean distance between two data points.
+
+   Arguments:
+       point1: a non-empty list of floats representing a data point
+       point2: a non-empty list of floats representing a data point
+
+   Returns: the Euclidean distance between two data points
+
+   Example:
+       Code:
+           point1 = [1.1, 1, 1, 0.5]
+           point2 = [4, 3.14, 2, 1]
+           print(euclidean_distance(point1, point2))
+       Output:
+           3.7735394525564456
+   &quot;&quot;&quot;
+   point_distance = 0.0
+   for i in range(len(point1)):
+       # using the formula to find the distance between two points
+       point_distance += (point1[i] - point2[i]) ** 2
+   return math.sqrt(point_distance)
+
+
+# problem for students
+def get_closest_centroid(point, centroids_dict):
+   &quot;&quot;&quot;Given a datapoint, finds the closest centroid. You should use
+   the euclidean_distance function (that you previously implemented).
+
+   Arguments:
+       point: a list of floats representing a data point
+       centroids_dict: a dictionary representing the centroids where the keys
+                       are strings (centroid names) and the values are lists
+                       of centroid locations
+
+   Returns: a string as the key name of the closest centroid to the data point
+
+   Example:
+       Code:
+           point = [0, 0, 0, 0]
+           centroids_dict = {&quot;centroid1&quot;: [1, 1, 1, 1],
+                           &quot;centroid2&quot;: [2, 2, 2, 2]}
+           print(get_closest_centroid(point, centroids_dict))
+       Output:
+           centroid1
+   &quot;&quot;&quot;
+   max = 100000000000000000000000000000
+   close = ''
+   for i in centroids_dict.keys():
+       d = euclidean_distance(point, centroids_dict[i])
+       # Comparing until we find the cloest distance
+       if d &lt; max:
+           max = d
+           close = i
+   return close
+
+
+# problem for students
+def update_assignment(list_of_points, centroids_dict):
+   &quot;&quot;&quot;Assign all data points to the closest centroids. You should use
+   the get_closest_centroid function (that you previously implemented).
+
+   Arguments:
+       list_of_points: a list of lists representing all data points
+       centroids_dict: a dictionary representing the centroids where the keys
+                       are strings (centroid names) and the values are lists
+                       of centroid locations
+
+   Returns: a new dictionary whose keys are the centroids' key names and
+            values are lists of points that belong to the centroid. If a
+            given centroid does not have any data points closest to it,
+            do not include the centroid in the returned dictionary
+
+   Example:
+       Code:
+           list_of_points = [[1.1, 1, 1, 0.5], [4, 3.14, 2, 1], [0, 0, 0, 0]]
+           centroids_dict = {&quot;centroid1&quot;: [1, 1, 1, 1],
+                           &quot;centroid2&quot;: [2, 2, 2, 2]}
+
+           print(update_assignment(list_of_points, centroids_dict))
+       Output:
+           {'centroid1': [[1.1, 1, 1, 0.5], [0, 0, 0, 0]],
+            'centroid2': [[4, 3.14, 2, 1]]}
+   &quot;&quot;&quot;
+   # creating a new dictionary
+
+   dic = {}
+   ls = list(centroids_dict.keys())
+   for i in ls:
+       dic[i] = []
+
+
+   for j in list_of_points:
+       s = get_closest_centroid(j, centroids_dict)
+
+       dic[s].append(j)
+   dic1 = {}
+   for i in dic.keys():
+       if len(dic[i]) != 0:
+           dic1[i] = dic[i]
+   return dic1
+
+
+# problem for students
+def mean_of_points(list_of_points):
+   &quot;&quot;&quot;Calculate the mean of a given group of data points. You should NOT
+   hard-code the dimensionality of the data points).
+
+   Arguments:
+       list_of_points: a list of lists representing a group of data points
+
+   Returns: a list of floats as the mean of the given data points
+
+   Example:
+       Code:
+           list_of_points = [[1.1, 1, 1, 0.5], [4, 3.14, 2, 1], [0, 0, 0, 0]]
+           print(mean_of_points(list_of_points))
+       Output:
+           [1.7, 1.3800000000000001, 1.0, 0.5]
+   &quot;&quot;&quot;
+   mean = []
+   for x in range(len(list_of_points[0])):
+       sum = 0
+       for y in range(len(list_of_points)):
+           sum += list_of_points[y][x]
+           answer = sum / len(list_of_points)
+       mean.append(answer)
+   return(mean)
+
+
+# problem for students
+def update_centroids(assignment_dict):
+   &quot;&quot;&quot;Update centroid locations as the mean of all data points that belong
+   to the cluster. You should use the mean_of_points function (that you
+   previously implemented).
+
+   Arguments:
+       assignment_dict: a dictionary whose keys are the centroids' key
+                        names and values are lists of points that belong
+                        to the centroid. It is the dictionary
+                        returned by update_assignment function.
+
+   Returns: A new dictionary representing the updated centroids. If a
+            given centroid does not have any data points closest to it,
+            do not include the centroid in the returned dictionary.
+
+   Example:
+       Code:
+           assignment_dict = {'centroid1': [[1.1, 1, 1, 0.5], [0, 0, 0, 0]],
+                           'centroid2': [[4, 3.14, 2, 1]]}
+           print(update_centroids(assignment_dict))
+       Output:
+         {'centroid1': [0.55, 0.5, 0.5, 0.25],
+          'centroid2': [4.0, 3.14, 2.0, 1.0]}
+   &quot;&quot;&quot;
+   new_version = {}
+   for a, b in assignment_dict.items():
+       new_version[a] = mean_of_points(b)
+   return new_version
+
+
+# ----------------------------------------------------------
+# HELPER FUNCTIONS
+
+def setup_data_centroids():
+   &quot;&quot;&quot;Creates are returns data for testing k-means methods.
+
+   Returns: list_of_points, a list of data points
+            centroids_dict1, two 4D centroids
+            centroids_dict2, two 4D centroids
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   list_of_points = [
+       [-1.01714716, 0.95954521, 1.20493919, 0.34804443],
+       [-1.36639346, -0.38664658, -1.02232584, -1.05902604],
+       [1.13659605, -2.47109085, -0.83996912, -0.24579457],
+       [-1.48090019, -1.47491857, -0.6221167, 1.79055006],
+       [-0.31237952, 0.73762417, 0.39042814, -1.1308523],
+       [-0.83095884, -1.73002213, -0.01361636, -0.32652741],
+       [-0.78645408, 1.98342914, 0.31944446, -0.41656898],
+       [-1.06190687, 0.34481172, -0.70359847, -0.27828666],
+       [-2.01157677, 2.93965872, 0.32334723, -0.1659333],
+       [-0.56669023, -0.06943413, 1.46053764, 0.01723844]
+   ]
+   centroids_dict1 = {
+       &quot;centroid1&quot;: [0.1839742, -0.45809263, -1.91311585, -1.48341843],
+       &quot;centroid2&quot;: [-0.71767545, 1.2309971, -1.00348728, -0.38204247],
+   }
+   centroids_dict2 = {
+       &quot;centroid1&quot;: [0.1839742, -0.45809263, -1.91311585, -1.48341843],
+       &quot;centroid2&quot;: [10, 10, 10, 10],
+   }
+   return list_of_points, centroids_dict1, centroids_dict2
+
+
+# ----------------------------------------------------------
+# TESTS
+
+def test_euclidean_distance():
+   &quot;&quot;&quot;Function for verifying if euclidean_distance is correctly implemented.
+   Will throw an error if it isn't.
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # simple case
+   point1 = [0, 0, 0, 0]
+   point2 = [1, 1, 1, 1]
+   assert_equals(2, euclidean_distance(point1, point2))
+
+   # negative
+   point1 = [-1, -1, -1, -1]
+   point2 = [-5, -3, -1, -1]
+   assert_equals(math.sqrt(20), euclidean_distance(point1, point2))
+
+   # floats
+   point1 = [1.1, 1, 1, 0.5]
+   point2 = [4, 3.14, 2, 1]
+   assert_equals(math.sqrt(14.2396), euclidean_distance(point1, point2))
+
+   # long version
+   point1 = [-0.451, 0.535, 1.031, 1.097, 0.59, -0.435,
+             1.934, 0.227, 1.026, 0.427, 0.267, -1.482,
+             -0.636, 0.354, -0.675, -0.751, -0.719, -0.454,
+             -1.262, -0.326, -0.608, -0.22, 0.354, 1.048,
+             -0.92, -0.027, 0.328, 1.397, 0.05, -0.125,
+             0.329, 1.631, -1.127, 0.067, 0.755, 1.367,
+             0.162, -0.072, 0.289, 2.388, 1.127, -0.706,
+             1.186, 0.815, -0.305, -1.001, -0.389, -0.871,
+             0.794, 0.5, 0.741, -0.348, -0.29, -0.924,
+             0.241, 0.16, -0.315, -0.149, -0.457, 0.616,
+             -0.017, 0.386, 1.34, -0.311, -1.116, -1.706,
+             -1.517, 0.781, 0.514, 1.126, -0.665, 0.583,
+             -0.07, -0.192, -0.083, -0.624, 0.582, 0.502,
+             0.98, -0.39, 0.438, -0.023, -1.097, -1.149,
+             0.666, -0.831, -0.048, -1.257, 1.043, -1.676,
+             -0.752, 1.964, -1.332, 0.057, -0.061, -0.858,
+             -0.817, 0.92, -0.041, -0.364]
+
+   point2 = [-0.625, -0.902, -0.869, 0.348, -1.461, 1.61,
+             0.34, 0.187, 0.232, -0.802, -0.666, 0.168,
+             0.898, 0.854, 1.668, -1.964, 0.745, -0.512,
+             0.034, 0.523, -1.01, -0.691, 1.542, 0.174,
+             1.026, 0.636, -0.185, -0.582, -3.384, 0.876,
+             -0.418, 1.623, -0.224, 0.869, 1.38, -0.45,
+             0.021, 1.766, 0.915, -1.002, 1.464, 0.361,
+             0.407, -0.312, -0.623, 1.203, -0.776, 2.283,
+             0.73, 0.151, 0.393, -0.852, 1.286, 0.171,
+             0.306, 0.675, -0.283, -0.367, -0.556, -1.865,
+             1.194, 0.605, 1.309, -0.594, -0.715, -0.88,
+             1.115, -0.625, -1.915, -0.853, 0.489, -1.729,
+             1.105, -0.822, 0.13, 0.986, -0.459, 2.506,
+             0.997, 1.511, 0.412, 0.034, 0.109, 0.068,
+             -0.267, -0.034, 1.614, -0.939, -0.06, -0.112,
+             0.026, -0.526, 0.608, 0.845, 0.424, 0.693,
+             0.209, -1.142, -0.666, 0.47]
+   expected = 13.52044903100485
+   received = euclidean_distance(point1, point2)
+   assert_equals(expected, received)
+   print(&quot;test_euclidean_distance passed.&quot;)
+
+
+def test_get_closest_centroid():
+   &quot;&quot;&quot;Function for verifying if get_closest_centroid is correctly implemented.
+   Will throw an error if it isn't.
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # set up
+   point1 = [0, 0, 0, 0]
+   point2 = [1.1, 5.3, 55, -12.1]
+   centroids_dict = {&quot;centroid1&quot;: [1, 1, 1, 1],
+                     &quot;centroid2&quot;: [-10.1, 1, 23.2, 5.099]}
+   assert_equals(&quot;centroid1&quot;, get_closest_centroid(point1, centroids_dict))
+   assert_equals(&quot;centroid2&quot;, get_closest_centroid(point2, centroids_dict))
+
+   point3 = [10.1, 1, 23.2, 5.099]
+   centroids_dict = {&quot;centroid1&quot;: [1, 1, 1, 1],
+                     &quot;centroid2&quot;: [10, 1, 23, 5],
+                     &quot;centroid3&quot;: [-100, 20.2, 52.9, -37.088]}
+   assert_equals(&quot;centroid2&quot;, get_closest_centroid(point3, centroids_dict))
+   print(&quot;test_get_closest_centroid passed.&quot;)
+
+
+def test_update_assignment():
+   &quot;&quot;&quot;Function for verifying if update_assignment is correctly implemented.
+   Will throw an error if it isn't.
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # set up
+   list_of_points, centroids_dict1, centroids_dict2 = setup_data_centroids()
+
+   # centroids_dict1
+   received = update_assignment(list_of_points, centroids_dict1)
+   expected = {
+       &quot;centroid1&quot;: [[-1.36639346, -0.38664658, -1.02232584, -1.05902604],
+                     [1.13659605, -2.47109085, -0.83996912, -0.24579457],
+                     [-0.83095884, -1.73002213, -0.01361636, -0.3265274]],
+       &quot;centroid2&quot;: [[-1.01714716, 0.95954521, 1.20493919, 0.34804443],
+                     [-1.48090019, -1.47491857, -0.6221167, 1.79055006],
+                     [-0.31237952, 0.73762417, 0.39042814, -1.1308523],
+                     [-0.78645408, 1.98342914, 0.31944446, -0.41656898],
+                     [-1.06190687, 0.34481172, -0.70359847, -0.27828666],
+                     [-2.01157677, 2.93965872, 0.32334723, -0.1659333],
+                     [-0.56669023, -0.06943413, 1.46053764, 0.01723844]]
+   }
+   assert_equals(expected, received)
+
+   # centroids_dict2
+   received = update_assignment(list_of_points, centroids_dict2)
+   expected = {
+       &quot;centroid1&quot;: [[-1.36639346, -0.38664658, -1.02232584, -1.05902604],
+                     [1.13659605, -2.47109085, -0.83996912, -0.24579457],
+                     [-0.83095884, -1.73002213, -0.01361636, -0.3265274],
+                     [-1.01714716, 0.95954521, 1.20493919, 0.34804443],
+                     [-1.48090019, -1.47491857, -0.6221167, 1.79055006],
+                     [-0.31237952, 0.73762417, 0.39042814, -1.1308523],
+                     [-0.78645408, 1.98342914, 0.31944446, -0.41656898],
+                     [-1.06190687, 0.34481172, -0.70359847, -0.27828666],
+                     [-2.01157677, 2.93965872, 0.32334723, -0.1659333],
+                     [-0.56669023, -0.06943413, 1.46053764, 0.01723844]]
+   }
+   assert_equals(expected, received)
+   print(&quot;test_update_assignment passed.&quot;)
+
+
+def test_mean_of_points():
+   &quot;&quot;&quot;Function for verifying if mean_of_points is correctly implemented.
+   Will throw an error if it isn't.
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # super simple
+   list_of_points = [
+       [0, 0, 0, 0],
+       [0, 0, 0, 0],
+   ]
+   assert_equals([0, 0, 0, 0], mean_of_points(list_of_points))
+
+   # a little more complicated
+   list_of_points = [
+       [1, 2, 4, 6],
+       [3, 4, 6, 8],
+   ]
+   assert_equals([2, 3, 5, 7], mean_of_points(list_of_points))
+
+   # negative
+   list_of_points = [
+       [-1, -10, -70, -89],
+       [2, 3, 55, 7],
+   ]
+   assert_equals([0.5, -3.5, -7.5, -41], mean_of_points(list_of_points))
+
+   # long version
+   list_of_points = [[0.339, -0.65, 0.596, 0.804],
+                     [0.002, 0.973, -0.194, 0.016],
+                     [-0.121, -1.241, -0.69, 0.74],
+                     [-0.742, -0.033, -0.322, -0.536],
+                     [-0.434, -0.775, 0.943, -1.224],
+                     [-2.72, 0.955, -0.072, 0.392],
+                     [0.148, -0.939, 1.471, 1.217],
+                     [-0.226, 0.42, -0.687, 1.799],
+                     [-1.156, -0.69, 1.287, -0.984],
+                     [-0.625, 0.555, -0.025, -0.391]]
+   expected = [-0.5535, -0.14250000000000002, 0.2307, 0.18330000000000002]
+   received = mean_of_points(list_of_points)
+   assert_equals(expected, received)
+
+   print(&quot;test_mean_of_points passed.&quot;)
+
+
+def test_update_centroids():
+   &quot;&quot;&quot;Function for verifying if update_centroids is correctly implemented.
+   Will throw an error if it isn't.
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # set up
+   list_of_points, centroids_dict1, centroids_dict2 = setup_data_centroids()
+
+   # centroids_dict1
+   assignment_dict = update_assignment(list_of_points, centroids_dict1)
+   expected = {
+       'centroid2': [-1.03386497, 0.774388037, 0.33899735, 0.023455955],
+       'centroid1': [-0.35358541, -1.529253186, -0.62530377, -0.543782673]
+   }
+   received = update_centroids(assignment_dict)
+   assert_equals(expected, received)
+
+   # centroids_dict2
+   assignment_dict = update_assignment(list_of_points, centroids_dict2)
+   expected = {
+       'centroid1': [-0.82978110, 0.08329567, 0.04970701, -0.146715632]
+   }
+   received = update_centroids(assignment_dict)
+   assert_equals(expected, received)
+   print(&quot;test_update_centroids passed.&quot;)
+
+
+# main functions
+def main_test():
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   test_euclidean_distance()
+   test_get_closest_centroid()
+   test_update_assignment()
+   test_mean_of_points()
+   test_update_centroids()
+   print(&quot;all tests passed.&quot;)
+
+
+def main_2d(data, init_centroids):
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+   centroids = init_centroids
+   old_centroids = None
+   step = 0
+   while not converged(centroids, old_centroids):
+       # save old centroid
+       old_centroids = centroids
+       # new assignment
+       assignment_dict = update_assignment(data, old_centroids)
+       # update centroids
+       centroids = update_centroids(assignment_dict)
+       # plot centroid
+       fig = plot_2d(assignment_dict, centroids)
+       plt.title(f&quot;step{step}&quot;)
+       fig.savefig(os.path.join(&quot;results&quot;, &quot;2D&quot;, f&quot;step{step}.png&quot;))
+       plt.clf()
+       step += 1
+   print(f&quot;K-means converged after {step} steps.&quot;)
+   return centroids
+
+
+def main_mnist(data, init_centroids):
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+   centroids = init_centroids
+   # plot initial centroids
+   plot_centroids(centroids, &quot;init&quot;)
+   old_centroids = None
+   step = 0
+   while not converged(centroids, old_centroids):
+       # save old centroid
+       old_centroids = centroids
+       # new assignment
+       assignment_dict = update_assignment(data, old_centroids)
+       # update centroids
+       centroids = update_centroids(assignment_dict)
+       step += 1
+   print(f&quot;K-means converged after {step} steps.&quot;)
+   # plot final centroids
+   plot_centroids(centroids, &quot;final&quot;)
+   return centroids
+
+
+if __name__ == &quot;__main__&quot;:
+   # main_test()
+
+   data, label = read_data(&quot;data/mnist.csv&quot;)
+   init_c = load_centroids(&quot;data/mnist_init_centroids.csv&quot;)
+   final_c = main_mnist(data, init_c)
+   write_centroids_tofile(&quot;mnist_final_centroids.csv&quot;, final_c)
+</code></pre>
+<h3 id="analysis">analysis</h3>
+<pre><code class="language-python">from kmeans import get_closest_centroid
+from utils import load_centroids, read_data, assert_equals
+
+
+# ----------------------------------------------------------
+# PROBLEMS FOR STUDENTS
+
+
+def update_assignment(list_of_points, labels, centroids_dict):
+   &quot;&quot;&quot;Assign all data points to the closest centroids and keep track of their
+   labels. The i-th point in &quot;data&quot; corresponds to the i-th label in &quot;labels&quot;.
+
+   Arguments:
+       list_of_points: a list of lists representing all data points
+       labels: a list of ints representing all data labels
+               labels[i] is the label of the point list_of_points[i]
+       centroids_dict: a dictionary representing the centroids where the keys
+                       are strings (centroid names) and the values are lists
+                       of centroid locations
+
+   Returns: a new dictionary whose keys are the centroids' key names and
+            values are a list of labels of the data points that are assigned
+            to that centroid.
+
+   Example:
+       Code:
+           list_of_points = [[1.1, 1, 1, 0.5], [4, 3.14, 2, 1], [0, 0, 0, 0]]
+           labels = [2, 1, 3]
+           centroids_dict = {&quot;centroid1&quot;: [1, 1, 1, 1],
+                             &quot;centroid2&quot;: [2, 2, 2, 2]}
+           print(update_assignment(list_of_points, labels, centroids_dict))
+       Output:
+           {'centroid1': [2, 3], 'centroid2': [1]}
+   &quot;&quot;&quot;
+   # creating a new dictionary
+   dic = {}
+   for i in list_of_points:
+              # get the return of the function as key
+       key = get_closest_centroid(i, centroids_dict)
+       # give every dic[key] an empty list
+       dic[key] = []
+   for i in list_of_points:
+       # get the value in the labels with the certain index
+       value = labels[list_of_points.index(i)]
+       # get the key
+       key = get_closest_centroid(i, centroids_dict)
+       # give the value to  the certain key
+       dic[key].append(value)
+   return dic
+
+
+def majority_count(labels):
+   &quot;&quot;&quot;Return the count of the majority labels in the label list
+
+   Arguments:
+       labels: a list of labels
+
+   Returns: the count of the majority labels in the list
+
+   Example:
+       Code:
+           labels = [0, 3, 3, 2, 2, 3, 4, 5, 5, 5, 4, 3, 2, 2, 2, 2]
+           print(majority_count(labels))
+       Output:
+           6
+   &quot;&quot;&quot;
+
+   dic = {}
+   for i in labels:
+       # initial the dic
+       dic[i] = 0
+   for i in labels:
+       # give the value to the dic if i in the dic.keys() let the
+       #  value of dic add one
+       dic[i] += 1
+
+   max = 0
+   for i in list(dic.values()):
+       if i &gt; max:
+           max = i  # assign the i to max we can get the max
+   return max
+
+
+def accuracy(list_of_points, labels, centroids_dict):
+   &quot;&quot;&quot;Calculate the accuracy of the algorithm. You should use
+   update_assignment and majority_count (that you previously implemented)
+
+   Arguments:
+       list_of_points: a list of lists representing all data points
+       labels: a list of ints representing all data labels
+               labels[i] is the label of the point list_of_points[i]
+       centroids_dict: a dictionary representing the centroids where the keys
+                       are strings (centroid names) and the values are lists
+                       of centroid locations
+
+   Returns: a float representing the accuracy of the algorithm
+
+   Example:
+       Code:
+           list_of_points = [[1.1, 1, 1, 0.5], [4, 3.14, 2, 1], [0, 0, 0, 0]]
+           labels = [2, 1, 3]
+           centroids_dict = {&quot;centroid1&quot;: [1, 1, 1, 1],
+                             &quot;centroid2&quot;: [2, 2, 2, 2]}
+           print(accuracy(list_of_points, labels, centroids_dict))
+       Output:
+           0.6666666666666666
+   &quot;&quot;&quot;
+   sum = 0
+   v = update_assignment(list_of_points, labels, centroids_dict).values()
+   for i in v:
+       # get the sum of majority_count
+       sum += majority_count(i)
+       # get the value according to the definition
+   return sum / len(labels)
+
+
+# ----------------------------------------------------------
+# HELPER FUNCTIONS
+def setup_for_tests():
+   &quot;&quot;&quot;Creates are returns data for testing analysis methods.
+
+   Returns: data, a list of data points
+            labels, numeric labels for each data point
+            centroids_dict1, three 4D centroids
+            centroids_dict2, three non-random 4D centroids
+               with poor starting values
+   &quot;&quot;&quot;
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   list_of_points = [
+           [-1.01714716,  0.95954521,  1.20493919,  0.34804443],
+           [-1.36639346, -0.38664658, -1.02232584, -1.05902604],
+           [1.13659605, -2.47109085, -0.83996912, -0.24579457],
+           [-1.48090019, -1.47491857, -0.6221167,  1.79055006],
+           [-0.31237952,  0.73762417,  0.39042814, -1.1308523],
+           [-0.83095884, -1.73002213, -0.01361636, -0.32652741],
+           [-0.78645408,  1.98342914,  0.31944446, -0.41656898],
+           [-1.06190687,  0.34481172, -0.70359847, -0.27828666],
+           [-2.01157677,  2.93965872,  0.32334723, -0.1659333],
+           [-0.56669023, -0.06943413,  1.46053764,  0.01723844]
+       ]
+   labels = [0, 1, 0, 2, 1, 2, 1, 2, 0, 0]
+   centroids_dict1 = {
+           &quot;centroid1&quot;: [0.1839742, -0.45809263, -1.91311585, -1.48341843],
+           &quot;centroid2&quot;: [-0.71767545, 1.2309971, -1.00348728, -0.38204247],
+           &quot;centroid3&quot;: [-1.71767545, 0.29971, 0.00328728, -0.38204247],
+       }
+   centroids_dict2 = {
+           &quot;centroid1&quot;: [0.1839742, -0.45809263, -1.91311585, -1.48341843],
+           &quot;centroid2&quot;: [10, 10, 10, 10],
+           &quot;centroid3&quot;: [-10, 1, -10, 10],
+       }
+   return list_of_points, labels, centroids_dict1, centroids_dict2
+
+
+# ----------------------------------------------------------
+# TESTS
+def test_update_assignment():
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # set up
+   (list_of_points, labels,
+    centroids_dict1, centroids_dict2) = setup_for_tests()
+
+   # test with centroids_dict1
+   answer = {'centroid3': [0, 1, 2, 1, 2, 2, 0], 'centroid1': [0],
+             'centroid2': [1, 0]}
+   assert_equals(
+       update_assignment(list_of_points, labels, centroids_dict1),
+       answer)
+
+   # test with centroids_dict2
+   answer = {'centroid1': [0, 1, 0, 2, 1, 2, 1, 2, 0, 0]}
+   assert_equals(
+       update_assignment(list_of_points, labels, centroids_dict2),
+       answer)
+   print(&quot;test_update_assignment passed&quot;)
+
+
+def test_majority_count():
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # single
+   assert_equals(6, majority_count([0, 0, 0, 0, 0, 0]))
+   assert_equals(5, majority_count([1, 0, 0, 0, 0, 0]))
+   assert_equals(5, majority_count([0, 1, 1, 1, 1, 1]))
+
+   # mixed
+   assert_equals(4, majority_count([0, 0, 1, 1, 0, 0]))
+   assert_equals(4, majority_count([0, 2, 2, 2, 3, 3, 0, 1, 1, 0, 0]))
+
+   # tied max count
+   assert_equals(4, majority_count([0, 2, 2, 2, 0, 2, 0, 0]))
+   print(&quot;test_majority_count passed&quot;)
+
+
+def test_accuracy():
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   # set up
+   (list_of_points, labels,
+    centroids_dict1, centroids_dict2) = setup_for_tests()
+
+   # test with centroids_dict1
+   expected = 0.5
+   received = accuracy(list_of_points, labels, centroids_dict1)
+   assert_equals(expected, received)
+
+   # test with centroids_dict2
+   expected = 0.4
+   received = accuracy(list_of_points, labels, centroids_dict2)
+   assert_equals(expected, received)
+
+   print(&quot;test_accuracy passed&quot;)
+
+
+def main_test():
+
+   #######################################################
+   # You do not need to change anything in this function #
+   #######################################################
+
+   test_update_assignment()
+   test_majority_count()
+   test_accuracy()
+   print(&quot;all tests passed.&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+   centroids = load_centroids(&quot;mnist_final_centroids.csv&quot;)
+   # Consider exploring the centroids data here
+
+   # Uncomment the line below for Part 2 Step 2, 3, and 4:
+   # main_test()
+
+   data, label = read_data(&quot;data/mnist.csv&quot;)
+   print(accuracy(data, label, centroids))
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#readme-link">readme link🔻</a><br>
+*
+<ul>
+<li><a href="#analysis">analysis</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://irisdin.github.io/post/59JrCTeTC/">
+              <h3 class="post-title">
+                Analyzing the problems and design of Airbnb interfaces
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Iris
+  <a class="rss" href="https://irisdin.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
