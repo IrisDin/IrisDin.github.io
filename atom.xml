@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Everything about Iris</title>
-    <updated>2021-12-20T19:55:14.430Z</updated>
+    <updated>2021-12-20T20:00:28.476Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
@@ -15,14 +15,14 @@
         <id>https://irisdin.github.io/post/ZT9SQzev5/</id>
         <link href="https://irisdin.github.io/post/ZT9SQzev5/">
         </link>
-        <updated>2021-12-19T11:14:37.000Z</updated>
+        <updated>2021-12-18T19:14:37.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[K-Means algorithms practice]]></title>
         <id>https://irisdin.github.io/post/SEbRoAqB2/</id>
         <link href="https://irisdin.github.io/post/SEbRoAqB2/">
         </link>
-        <updated>2021-12-18T19:40:09.000Z</updated>
+        <updated>2021-12-18T03:40:09.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Analyzing the problems and design of Airbnb interfaces]]></title>
