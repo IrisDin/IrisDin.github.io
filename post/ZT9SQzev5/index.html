@@ -1,0 +1,521 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Social networking and recommendation sysytems practice | Everything about Iris</title>
+<link rel="shortcut icon" href="https://irisdin.github.io//favicon.ico?v=1640028571666">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://irisdin.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Social networking and recommendation sysytems practice | Everything about Iris - Atom Feed" href="https://irisdin.github.io//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="readme link⬇️
+uw cse160
+
+import utils  # noqa: F401, do not remove if using a Mac
+import networkx as nx
+import matplotli..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://irisdin.github.io/">
+  <img class="avatar" src="https://irisdin.github.io//images/avatar.png?v=1640028571666" alt="">
+  </a>
+  <h1 class="site-title">
+    Everything about Iris
+  </h1>
+  <p class="site-description">
+    It’s hard to stay mad when there’s so much beauty in the world.
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/archives" class="menu">
+          Work
+        </a>
+      
+    
+      
+        <a href="https://irisdin.github.io/" class="menu">
+          Main
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          Tag
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/IrisDin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.instagram.com/iris_oovo/" target="_blank">
+          <i class="ri-facebook-line"></i>
+        </a>
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Social networking and recommendation sysytems practice
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-12-19
+              </span>
+              <span>
+                10 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="readme-link️">readme link⬇️</h1>
+<p><a href="https://courses.cs.washington.edu/courses/cse160/21au/homework/hw5/homework5.html">uw cse160</a></p>
+<pre><code class="language-python">
+import utils  # noqa: F401, do not remove if using a Mac
+import networkx as nx
+import matplotlib.pyplot as plt
+from operator import itemgetter
+
+   &quot;&quot;&quot;Builds and returns the practice graph
+   &quot;&quot;&quot;
+   def get_practice_graph():
+   practice_graph = nx.Graph()
+
+   practice_graph.add_node(&quot;A&quot;)
+   practice_graph.add_node(&quot;B&quot;)
+   practice_graph.add_node(&quot;C&quot;)
+   practice_graph.add_node(&quot;D&quot;)
+   practice_graph.add_node(&quot;E&quot;)
+   practice_graph.add_node(&quot;F&quot;)
+   practice_graph.add_edge(&quot;A&quot;, &quot;B&quot;)
+   practice_graph.add_edge(&quot;A&quot;, &quot;C&quot;)
+   practice_graph.add_edge(&quot;B&quot;, &quot;C&quot;)
+   practice_graph.add_edge(&quot;B&quot;, &quot;D&quot;)
+   practice_graph.add_edge(&quot;C&quot;, &quot;D&quot;)
+   practice_graph.add_edge(&quot;C&quot;, &quot;F&quot;)
+   practice_graph.add_edge(&quot;D&quot;, &quot;F&quot;)
+   practice_graph.add_edge(&quot;D&quot;, &quot;E&quot;)
+   return practice_graph
+   def draw_practice_graph(graph):
+   &quot;&quot;&quot;Draw practice_graph to the screen.
+   &quot;&quot;&quot;
+   nx.draw_networkx(graph)
+   plt.show()
+
+def get_romeo_and_juliet_graph():
+   &quot;&quot;&quot;Builds and returns the romeo and juliet graph
+   &quot;&quot;&quot;
+   rj = nx.Graph()
+   rj.add_nodes_from(['Paris', 'Mercutio', 'Escalus', 'Capulet'])
+   rj.add_nodes_from(['Juliet', 'Tybalt', 'Nurse'])
+   rj.add_nodes_from(['Montague', 'Benvolio', 'Romeo', 'Friar Laurence'])
+   rj.add_edge('Romeo', 'Friar Laurence')
+   rj.add_edge('Romeo', 'Benvolio')
+   rj.add_edge('Romeo', 'Montague')
+   rj.add_edge('Romeo', 'Mercutio')
+   rj.add_edge('Montague', 'Benvolio')
+   rj.add_edge('Montague', 'Escalus')
+   rj.add_edge('Juliet', 'Tybalt')
+   rj.add_edge('Juliet', 'Capulet')
+   rj.add_edge('Juliet', 'Friar Laurence')
+   rj.add_edge('Juliet', 'Romeo')
+   rj.add_edge('Tybalt', 'Capulet')
+   rj.add_edge('Escalus', 'Mercutio')
+   rj.add_edge('Escalus', 'Paris')
+   rj.add_edge('Paris', 'Mercutio')
+   rj.add_edge('Nurse', 'Juliet')
+   rj.add_edge('Capulet', 'Escalus')
+   rj.add_edge('Capulet', 'Paris')
+   return rj
+
+def draw_rj(graph):
+   &quot;&quot;&quot;Draw the rj graph to the screen and to a file.
+   &quot;&quot;&quot;
+   nx.draw_networkx(graph)
+   plt.savefig(&quot;romeo-and-juliet.pdf&quot;)
+   plt.show()
+
+
+###
+#  Problem 2
+###
+
+def friends(graph, user):
+   &quot;&quot;&quot;Returns a set of the friends of the given user, in the given graph.
+   &quot;&quot;&quot;
+   # This function has already been implemented for you.
+   # You do not need to add any more code to this (short!) function.
+   return set(graph.neighbors(user))
+
+
+def friends_of_friends(graph, user):
+   &quot;&quot;&quot;Find and return the friends of friends of the given user.
+
+   Arguments:
+       graph: the graph object that contains the user and others
+       user: a string
+
+   Returns: a set containing the names of all of the friends of
+   friends of the user. The set should not contain the user itself
+   or their immediate friends.
+   &quot;&quot;&quot;
+   # creating a new set
+   set_frined = set()
+   # finding frineds for a given user
+   for friend in graph.neighbors(user):
+       # reviewing each specific person
+       for people in graph.neighbors(friend):
+           if people != user:
+               if people not in graph.neighbors(user):
+                   if people not in set_frined:
+                       set_frined.add(people)
+
+   return set_frined
+
+
+def common_friends(graph, user1, user2):
+   &quot;&quot;&quot;Finds and returns the set of friends that user1 and user2 have in common.
+
+   Arguments:
+       graph:  the graph object that contains the users
+       user1: a string representing one user
+       user2: a string representing another user
+
+   Returns: a set containing the friends user1 and user2 have in common
+   &quot;&quot;&quot;
+   #  return a set that contains the coomon user
+   return friends(graph, user1) &amp; friends(graph, user2)
+
+
+def number_of_common_friends_map(graph, user):
+   &quot;&quot;&quot;Returns a map (a dictionary), mapping a person to the number of friends
+   that person has in common with the given user. The map keys are the
+   people who have at least one friend in common with the given user,
+   and are neither the given user nor one of the given user's friends.
+   Example: a graph called my_graph and user &quot;X&quot;
+   Here is what is relevant about my_graph:
+       - &quot;X&quot; and &quot;Y&quot; have two friends in common
+       - &quot;X&quot; and &quot;Z&quot; have one friend in common
+       - &quot;X&quot; and &quot;W&quot; have one friend in common
+       - &quot;X&quot; and &quot;V&quot; have no friends in common
+       - &quot;X&quot; is friends with &quot;W&quot; (but not with &quot;Y&quot; or &quot;Z&quot;)
+   Here is what should be returned:
+     number_of_common_friends_map(my_graph, &quot;X&quot;)  =&gt;   { 'Y':2, 'Z':1 }
+
+   Arguments:
+       graph: the graph object that contains the user and others
+       user: a string
+
+   Returns: a dictionary mapping each person to the number of (non-zero)
+   friends they have in common with the user
+   &quot;&quot;&quot;
+   # creating a new dictionary
+   common_map = {}
+   for friend in friends_of_friends(graph, user):
+       # len can not be negative
+       if len(common_friends(graph, user, friend)) &gt; 0:
+           common_map[friend] = len(common_friends(graph, user, friend))
+
+   return common_map
+
+
+def number_map_to_sorted_list(map_with_number_vals):
+   &quot;&quot;&quot;Given a dictionary, return a list of the keys in the dictionary.
+   The keys are sorted by the number value they map to, from greatest
+   number down to smallest number.
+   When two keys map to the same number value, the keys are sorted by their
+   natural sort order for whatever type the key is, from least to greatest.
+
+   Arguments:
+       map_with_number_vals: a dictionary whose values are numbers
+
+   Returns: a list of keys, sorted by the values in map_with_number_vals
+   &quot;&quot;&quot;
+   # sort both of the key through itemgetter function
+   dict_item = map_with_number_vals.items()
+   sort = sorted(sorted(dict_item, key=itemgetter(0)),
+                 key=itemgetter(1), reverse=True)
+   # creating a new list
+   sorted_new_list = []
+   for item in sort:
+       sorted_new_list.append(item[0])
+   return sorted_new_list
+
+
+def recommend_by_number_of_common_friends(graph, user):
+   &quot;&quot;&quot;
+   Returns a list of friend recommendations for the user, sorted
+   by number of friends in common.
+
+   Arguments:
+       graph: the graph object that contains the user and others
+       user: a string
+
+   Returns: A list of friend recommendations for the given user.
+   The friend recommendation list consists of names/IDs of people in
+   the graph who are not yet a friend of the given user.  The order
+   of the list is determined by the number of common friends (people
+   with the most common friends are listed first).  In the
+   case of a tie in number of common friends, the names/IDs are
+   sorted by their natural sort order, from least to greatest.
+   &quot;&quot;&quot;
+   common_list = number_of_common_friends_map(graph, user)
+   sorted_friend_list = number_map_to_sorted_list(common_list)
+   return sorted_friend_list
+
+
+###
+#  Problem 3
+###
+
+def influence_map(graph, user):
+   &quot;&quot;&quot;Returns a map (a dictionary) mapping from each person to their
+   influence score, with respect to the given user. The map only
+   contains people who have at least one friend in common with the given
+   user and are neither the user nor one of the users's friends.
+   See the assignment writeup for the definition of influence scores.
+   &quot;&quot;&quot;
+   # creating a new dictionary
+   new_map = {}
+   for name in friends_of_friends(graph, user):
+       score = 0
+       for person in common_friends(graph, user, name):
+           # calculating the score based on the definition
+           score = score + 1/len(friends(graph, person))
+       new_map[name] = score
+
+   return new_map
+
+
+def recommend_by_influence(graph, user):
+   &quot;&quot;&quot;Return a list of friend recommendations for the given user.
+   The friend recommendation list consists of names/IDs of people in
+   the graph who are not yet a friend of the given user.  The order
+   of the list is determined by the influence score (people
+   with the biggest influence score are listed first).  In the
+   case of a tie in influence score, the names/IDs are sorted
+   by their natural sort order, from least to greatest.
+   &quot;&quot;&quot;
+   new_list = influence_map(graph, user)
+   return number_map_to_sorted_list(new_list)
+
+
+###
+#  Problem 5
+###
+
+def get_facebook_graph():
+   &quot;&quot;&quot;Builds and returns the facebook graph
+   &quot;&quot;&quot;
+   # creating a graph named facebook
+   facebook = nx.Graph()
+   # reading the file
+   with open('facebook-links.txt') as file:
+       for line in file:
+           line = line.split('	')
+           facebook.add_edge(int(line[0]), int(line[1]))
+   return facebook
+
+
+def main():
+   practice_graph = get_practice_graph()
+   # Comment out this line after you have visually verified your practice
+   # graph.
+   # Otherwise, the picture will pop up every time that you run your program.
+   draw_practice_graph(practice_graph)
+
+   rj = get_romeo_and_juliet_graph()
+   # Comment out this line after you have visually verified your rj graph and
+   # created your PDF file.
+   # Otherwise, the picture will pop up every time that you run your program.
+   draw_rj(rj)
+
+   ###
+   #  Problem 4
+   ###
+
+   print(&quot;Problem 4:&quot;)
+   print()
+   # unchanged recoomendation list
+   list_unchange = []
+   # changed recoomendation list
+   list_change = []
+   # comparing and finding the difference
+   for people in rj.nodes():
+       influence_algorithim = recommend_by_influence(rj, people)
+       common_algorithim = recommend_by_number_of_common_friends(rj, people)
+       if influence_algorithim == common_algorithim:
+           list_unchange.append(people)
+       else:
+           list_change.append(people)
+
+   print(&quot;Unchanged Recommendation:&quot;, sorted(list_unchange))
+   print(&quot;Changed Recommendation:&quot;, sorted(list_change))
+
+   ###
+   #  Problem 5
+   ###
+
+   facebook = get_facebook_graph()
+
+   # assert len(facebook.nodes()) == 63731
+   # assert len(facebook.edges()) == 817090
+
+   ###
+   #  Problem 6
+   ###
+   print()
+   print(&quot;Problem 6:&quot;)
+   print()
+   # Get user id that is mutiple 1000 list.
+   user_mutiple_1000 = []
+   # finding all users that is the mutiple of 1000 in the dataset
+   for people in list(facebook.nodes()):
+       if people % 1000 == 0:
+           user_mutiple_1000.append(people)
+   # sort in ascending order of userID
+   user_mutiple_1000.sort()
+   # using number of frined function
+   for friend in user_mutiple_1000:
+       friend_list = recommend_by_number_of_common_friends(facebook, friend)
+   # get the first 10 result by using list slicing
+       print(friend, '(by number_of_common_friends):', friend_list[:10])
+
+   ###
+   #  Problem 7
+   ###
+   print()
+   print(&quot;Problem 7:&quot;)
+   print()
+   # using influence score function in the user listed that we created above
+   for people in user_mutiple_1000:
+       influence_recommend = recommend_by_influence(facebook, people)
+   # get the first 10 result by using list slicing
+       print(people, '(by influence):', influence_recommend[:10])
+
+   ###
+   #  Problem 8
+   ###
+   print()
+   print(&quot;Problem 8:&quot;)
+   print()
+   same_number = 0
+   diff_number = 0
+   for people in user_mutiple_1000:
+       influence_method = recommend_by_influence(facebook, people)
+       common_method = recommend_by_number_of_common_friends(facebook, people)
+       if influence_method == common_method:
+           same_number += 1
+       else:
+           diff_number += 1
+   print('Same:', same_number)
+   print('Different:', diff_number)
+
+
+if __name__ == &quot;__main__&quot;:
+   main()
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#readme-link%EF%B8%8F">readme link⬇️</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://irisdin.github.io/post/59JrCTeTC/">
+              <h3 class="post-title">
+                Analyzing the problems and design of Airbnb interfaces
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Iris
+  <a class="rss" href="https://irisdin.github.io//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
