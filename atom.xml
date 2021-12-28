@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Iris&apos;s Blog</title>
-    <updated>2021-12-23T20:07:49.807Z</updated>
+    <updated>2021-12-28T04:34:28.273Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
@@ -43,7 +43,7 @@
         <id>https://irisdin.github.io/post/da1sPo1x1/</id>
         <link href="https://irisdin.github.io/post/da1sPo1x1/">
         </link>
-        <updated>2021-12-08T21:03:13.000Z</updated>
+        <updated>2021-12-08T05:03:13.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Analyzing the problems and design of Airbnb interfaces]]></title>
