@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Iris&apos;s Blog</title>
-    <updated>2022-01-05T19:58:29.361Z</updated>
+    <updated>2022-01-05T20:04:36.675Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
@@ -18,25 +18,25 @@
         <updated>2021-12-18T03:14:37.000Z</updated>
     </entry>
     <entry>
+        <title type="html"><![CDATA[# 皮囊，魂灵；是石头还是剪刀]]></title>
+        <id>https://irisdin.github.io/post/54PDWzCQ0/</id>
+        <link href="https://irisdin.github.io/post/54PDWzCQ0/">
+        </link>
+        <updated>2021-12-16T20:04:55.000Z</updated>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Fraud detection pratice]]></title>
         <id>https://irisdin.github.io/post/HsYyfFoIA/</id>
         <link href="https://irisdin.github.io/post/HsYyfFoIA/">
         </link>
-        <updated>2021-12-17T13:02:49.000Z</updated>
+        <updated>2021-12-16T05:02:49.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[K-Means algorithms practice]]></title>
         <id>https://irisdin.github.io/post/SEbRoAqB2/</id>
         <link href="https://irisdin.github.io/post/SEbRoAqB2/">
         </link>
-        <updated>2021-12-17T11:40:09.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[# 皮囊，魂灵；是石头还是剪刀]]></title>
-        <id>https://irisdin.github.io/post/54PDWzCQ0/</id>
-        <link href="https://irisdin.github.io/post/54PDWzCQ0/">
-        </link>
-        <updated>2021-12-16T20:04:55.000Z</updated>
+        <updated>2021-12-16T03:40:09.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Should employers be allowed to surveil their employees' or potential employee’s digital actions and made decisions?]]></title>
