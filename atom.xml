@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Iris&apos; Blog</title>
-    <updated>2022-01-29T19:20:13.441Z</updated>
+    <updated>2022-01-29T19:48:15.988Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
@@ -16,6 +16,13 @@
         <link href="https://irisdin.github.io/post/Y233VJcRo/">
         </link>
         <updated>2022-01-27T19:08:04.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[# 回忆：RADIANCE音乐节·如果能将时光倒流]]></title>
+        <id>https://irisdin.github.io/post/wkqygGww2/</id>
+        <link href="https://irisdin.github.io/post/wkqygGww2/">
+        </link>
+        <updated>2022-01-27T03:22:14.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[# 思考：互联网金融｜监管体系下市场的风云莫测]]></title>
@@ -72,12 +79,5 @@
         <link href="https://irisdin.github.io/post/projectlogistic/">
         </link>
         <updated>2021-12-02T20:04:35.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Informatics major application share :)]]></title>
-        <id>https://irisdin.github.io/post/info/</id>
-        <link href="https://irisdin.github.io/post/info/">
-        </link>
-        <updated>2021-11-29T13:07:40.000Z</updated>
     </entry>
 </feed>
