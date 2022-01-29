@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://irisdin.github.io/</id>
     <title>Iris&apos; Blog</title>
-    <updated>2022-01-26T18:59:16.647Z</updated>
+    <updated>2022-01-29T19:07:28.453Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://irisdin.github.io/"/>
     <link rel="self" href="https://irisdin.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://irisdin.github.io/images/avatar.png</logo>
     <icon>https://irisdin.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, Iris&apos; Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[# 思考：互联网金融｜监管体系下市场的风云莫测]]></title>
+        <id>https://irisdin.github.io/post/58ebE1Y_1/</id>
+        <link href="https://irisdin.github.io/post/58ebE1Y_1/">
+        </link>
+        <updated>2022-01-28T10:53:55.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HealDish-2022WINFO Hackthon Project💻]]></title>
         <id>https://irisdin.github.io/post/XU-ZEBqSU/</id>
@@ -32,11 +39,11 @@
         <updated>2022-01-01T08:38:12.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[# 皮囊，魂灵；是石头还是剪刀]]></title>
+        <title type="html"><![CDATA[# 思考：皮囊，魂灵；是石头还是剪刀]]></title>
         <id>https://irisdin.github.io/post/54PDWzCQ0/</id>
         <link href="https://irisdin.github.io/post/54PDWzCQ0/">
         </link>
-        <updated>2021-12-16T20:04:55.000Z</updated>
+        <updated>2021-12-16T04:04:55.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Should employers be allowed to surveil their employees' or potential employee’s digital actions and made decisions?]]></title>
