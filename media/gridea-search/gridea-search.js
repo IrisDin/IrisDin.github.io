@@ -50,6 +50,7 @@ function fuzzySearch(data, phrase) {
     var fuzzyResult = fuse.search(phrase);
     return fuzzyResult;
 }
+
 //检查缓存是否最新
 function checkCache() {
     var infosCache = JSON.parse(localStorage.getItem('InfosCache'));
